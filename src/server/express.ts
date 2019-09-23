@@ -4,6 +4,7 @@ import { Server } from 'http';
 import * as mongoose from 'mongoose';
 import { RegisterController, SprintController } from '../controllers';
 import { LoginController } from '../controllers';
+import { NoteController } from '../controllers/note';
 
 export class ExpressServer {
     public httpServer: Server;
@@ -11,12 +12,14 @@ export class ExpressServer {
     private _registerRoute: RegisterController;
     private _loginRoute: LoginController;
     private _sprintRoute: SprintController;
+    private _noteRoute: NoteController;
 
     constructor(server: Express, port: number) {
       this.setupStandardMiddleware(server);
       this._registerRoute = new RegisterController(server);
       this._loginRoute = new LoginController(server);
       this._sprintRoute = new SprintController(server);
+      this._noteRoute = new NoteController(server);
       this.configureApiEndPoints();
       this.httpServer = this.startListen(server, port);
     }
@@ -47,6 +50,7 @@ export class ExpressServer {
       this._registerRoute.initialize(this._baseApiUrl);
       this._loginRoute.initialize(this._baseApiUrl);
       this._sprintRoute.initialize(this._baseApiUrl);
+      this._noteRoute.initialize(this._baseApiUrl);
     }
 
 }
