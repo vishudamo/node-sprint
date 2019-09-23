@@ -12,7 +12,7 @@ export class NoteController extends Controller<Express> {
     }
     
     initialize(baseUrl: string): void {
-       this.server.post(`${baseUrl}note`)
+       this.server.post(`${baseUrl}note`, this.createNote);
     }
 
     public createNote = async(req: Request, res: Response, next: NextFunction) => {
